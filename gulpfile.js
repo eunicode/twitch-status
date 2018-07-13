@@ -5,6 +5,7 @@
 
 // gulpfile updated to work with gulp 4 (gulp.task + gulp.series)
 // https://www.liquidlight.co.uk/blog/article/how-do-i-update-to-gulp-4/
+// https://github.com/gulpjs/gulp/blob/4.0/docs/recipes/minimal-browsersync-setup-with-gulp4.md
 
 // Include gulp
 var gulp = require('gulp');
@@ -15,22 +16,25 @@ var browserSync = require('browser-sync').create(); // create a browser sync ins
 // Development Tasks 
 
 // Start BrowserSync server
-// To trigger this command, from the terminal run `gulp browserSync`
-// BrowserSync monitors the directory defined in baseDir and whenever we run the command, the page reloads.
-gulp.task('browserSync', function() {
-    browserSync.init({
-      server: {
-        baseDir: 'app'
-      },
-    });
+function serve(done) {
+  browserSync.init({
+    server: {
+      baseDir: 'app'
+    }
   });
+  done();
+}
 
-// Watch for files changes and reload   
-gulp.task('watch', gulp.series('browserSync', function() {
-    gulp. watch('app/*.html', browserSync.reload);
-    gulp.watch('app/css/*.css', browserSync.reload); 
-    gulp.watch('app/js/*.js', browserSync.reload); 
-}));
+function reload(done) {
+  browserSync.reload();
+  done();
+}
+
+function watch() {
+  gulp.watch('app/*.html', reload);
+  gulp.watch('app/css/*.css', reload); 
+  gulp.watch('app/js/*.js', reload); 
+}
 
 // Default Task
-gulp.task('default', gulp.series('watch'));
+gulp.task('default', gulp.series(serve, watch));
