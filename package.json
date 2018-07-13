@@ -1,0 +1,23 @@
+{
+  "name": "twitch-status",
+  "version": "1.0.0",
+  "description": "Check twitch streamers' online status",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eunicode/twitch-status.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eunicode/twitch-status/issues"
+  },
+  "homepage": "https://github.com/eunicode/twitch-status#readme",
+  "devDependencies": {
+    "browser-sync": "^2.24.5",
+    "gulp": "^4.0.0"
+  }
+}
