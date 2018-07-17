@@ -1,0 +1,86 @@
+/* ===================================== 
+    Styles
+======================================== */
+
+/* Import normalize */
+
+* {
+    box-sizing: border-box;
+    /* Include padding and border in the element's total width and height */
+  }
+
+body {
+    background: #212121;
+    color: #f5f5f5;
+    font-family: sans-serif;
+}
+
+h1 {
+    text-align: center; /* Fallback style for browsers without flexbox */
+    line-height: 1.5;
+    font-size: 4em;
+}
+
+.item-right {
+    width: 100%;
+    /* main = width: 40em -> .container -> .item -> .item-right
+    .item-right width is 40em (640px) -> .item-right p
+    Need to define width to prevent text running till end of browser. */ 
+    overflow: hidden; 
+    /* The overflow CSS property specifies what to do when an 
+    element's content is too large to fit in its block formatting context.
+    Need `overflow: hidden` bc image (100px) + .item-right p (640px) = 740px.
+    740px will overflow 640px container. 
+    .item-right p = width: 100%. That means 640px bc 
+    main = width: 40em -> .container -> .item -> .item-right-p. */
+    padding-left: 2em;
+}
+
+/* Ellipsis
+width + wrapping + overflow + text-overflow
+Source: https://davidwalsh.name/css-ellipsis */
+
+.item-right p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    /* width: 100%; */
+    white-space: nowrap;
+}
+
+footer {
+    text-align: center;
+}
+/* ===================================== 
+    Layout
+======================================== */
+
+/* Mobile layout (single column) fallback */
+
+/* How to center w/out flexbox
+"margin: 0 auto" + "width"
+*/
+
+body {
+	max-width: 50em;
+    margin: 0 auto; /* Doesn't center text or images */
+}
+
+main {
+    max-width: 40em;
+    margin: 0 auto;
+}
+
+/* Mobile layout for browsers with Flexbox support */
+@supports (display: flex) {
+    .item {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+    }
+}
+/* Mobile layout for browsers with CSS Grid support */
+
+@supports (grid-area: auto) {
+
+}
