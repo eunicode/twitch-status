@@ -63,9 +63,10 @@ function getChannel(user, status) {
     let request;
     let response;
     let channelStatus;
-    let channelName;
+    // let channelName;
     let channelUrl;
     let channelLogo;
+    let channelGame;
 
     request = new XMLHttpRequest();
 
@@ -80,12 +81,13 @@ function getChannel(user, status) {
         if (request.status >= 200 && request.status < 400) {
             response = JSON.parse(request.responseText);
             console.log("response: ", response);
-            channelName = response.display_name;
+            // channelName = response.display_name;
             channelUrl = response.url;
             channelLogo = response.logo;
+            channelGame = response.game;
 
             if (status === "online") {
-                channelStatus = response.status;
+                channelStatus = `online: ${response.status}`;
             } else if (status === "offline") {
                 channelStatus = "offline";
             } else {
@@ -94,11 +96,11 @@ function getChannel(user, status) {
             
             container.innerHTML = container.innerHTML + 
             `<section class="item">
-            <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/freecodecamp-profile_image-d9514f2df0962329-300x300.png" width="100px">
+            <img src=${channelLogo} alt="logo" width="100px">
             <div class="item-right">
-                <h3>USERNAME</h3>
-                <p>offline</p>
-                <p>description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <h3><a href=${channelUrl} target="_blank">${user}</a></h3>
+                <p>${channelStatus}</p>
+                <p>${channelGame}</p>
             </div>
             </section>`
 
@@ -117,4 +119,10 @@ for (let i = 0; i < users.length; i++) {
 // Get rid of global variables
 // Promises
 // DRY up code with OOJS?
+// Sticky footer (in the case of zero users)
+// Add BEM classes
+// Add colored dot to signal if user is online/offline
+// Add color to username to signal if user is online/offline
+// Sort online users to the top
+// Add tabs for offline, online users
 // Add ability to search and add/remove users
