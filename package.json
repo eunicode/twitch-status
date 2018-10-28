@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/eunicode/twitch-status#readme",
   "devDependencies": {
-    "browser-sync": "^2.24.5",
+    "browser-sync": "^2.26.3",
     "gulp": "^4.0.0"
   }
 }
