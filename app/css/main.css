@@ -1,13 +1,13 @@
-/* ===================================== 
+/* ======================================================= 
     Styles
-======================================== */
+========================================================== */
 
 /* Import normalize */
 
 * {
     box-sizing: border-box;
     /* Include padding and border in the element's total width and height */
-  }
+}
 
 body {
     background: #212121;
@@ -21,11 +21,20 @@ h1 {
     font-size: 4em;
 }
 
+.item {
+    max-width: 100%;
+}
+
+.item-img {
+    width: 100px;
+}
+
 .item-right {
-    width: 100%;
-    /* main = width: 40em -> .container -> .item -> .item-right
-    .item-right width is 40em (640px) -> .item-right p
+    width: calc(100% - 100px);
+    /* .grid width = 40em --> main --> section --> .item-avatar + .item-right
+    .item-right width is 40em (640px) --> .item-right p
     Need to define width to prevent text running till end of browser. */ 
+    
     overflow: hidden; 
     /* The overflow CSS property specifies what to do when an 
     element's content is too large to fit in its block formatting context.
@@ -33,7 +42,8 @@ h1 {
     740px will overflow 640px container. 
     .item-right p = width: 100%. That means 640px bc 
     main = width: 40em -> .container -> .item -> .item-right-p. */
-    padding-left: 2em;
+    
+    padding-left: 2em; /* gap */
 }
 
 /* Ellipsis
@@ -49,38 +59,111 @@ Source: https://davidwalsh.name/css-ellipsis */
 
 footer {
     text-align: center;
+    padding: 1em 0;
 }
-/* ===================================== 
-    Layout
-======================================== */
 
-/* Mobile layout (single column) fallback */
+/* ======================================================= 
+    Layout
+========================================================== */
+
+/* Mobile, responsive layout (single column) | fallback */
 
 /* How to center w/out flexbox
 "margin: 0 auto" + "width"
 */
 
-body {
-	max-width: 50em;
-    margin: 0 auto; /* Doesn't center text or images */
-}
-
-main {
+.grid {
     max-width: 40em;
     margin: 0 auto;
 }
 
+main {
+    max-width: inherit; /* 40em */
+}
+
+/* ------------------------------------------------------- */
 /* Mobile layout for browsers with Flexbox support */
+
 @supports (display: flex) {
     .item {
         display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
+        flex-direction: row; /* Items (icon and text) are side-by-side */
+        justify-content: flex-start; /* Align items on main axis */
+        align-items: center; /* Align items on cross-axis */
     }
 }
-/* Mobile layout for browsers with CSS Grid support */
+
+/* Layouts for browsers with CSS Grid support */
 
 @supports (grid-area: auto) {
 
+    /* Mobile layout */
+
+    @media screen and (min-width: 50em) {
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Explicit grid track */
+            grid-auto-rows: auto; /* Implicit grid track. Specifies size of auto-generated grid tracks. 
+            `auto` = default, size of content */
+            grid-template-areas: /* Template + named grid areas are optional here */
+                "head"
+                "main"
+                "foot";
+        }
+    
+        header {
+            grid-area: head;
+        }
+    
+        main {
+            grid-area: main;
+        }
+    
+        footer {
+            grid-area: foot;
+        }
+    }
+
+    /* Two-column layout */
+
 }
+
+/* 
+NOTES
+
+Pay attention to parent-directChildren relationship when setting widths.
+
+Parent can set width of direct child, if direct child doesn't have children of its own that can cause 
+overflow? 
+
+You can set parent/ancestor's width, and successfully constrain descendants' widths.
+For example, 
+.grid width 40em --> main 40em --> section 100% --> .item-avatar 100px + .item-right 100% - 100px
+--> h3 [a], p
+
+The parent container can increase in width if its children are wider than the parent. 
+For example, 
+.grid width 40em --> main 100% --> section 100% --> .item-avatar 100px + .item-right 100%
+if I had the parent, main, at 100% (40em), and main had a child, .section, that had 
+side-by-side avatar and text. And if the avatar's width was 100px, and the text's width was 100%, 
+.section's width would have been 740px (640px + 100px). 
+And parent's width also would become 740px.
+This doesn't happen if you set main to a length value like 40em, though. 
+
+40em vs 100%
+.grid --> main
+.grid { max-width: 40em; }
+main { max-width: 40em ;} VS main { max-width: 100% }
+em is more rigid. Even if main's descendants are wider than main, main's width will be 640px. 
+
+`inherit` vs 100%
+https://stackoverflow.com/questions/9374509/width100-vs-widthinherit
+
+`inherit` = the child gets the same value as the parent, which could be 50%. The child's width would 
+be 50% of its parents' width.
+100% = the child's width is 100% of its parents' width
+
+CSS LINKS
+https://alligator.io/css/flexbox-primer/ 
+https://css-tricks.com/snippets/css/complete-guide-grid/
+*/
