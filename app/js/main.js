@@ -12,7 +12,7 @@ const users = [
   "trikslyr"
 ];
 
-let container = document.querySelector(".container");
+let main = document.querySelector("main");
 
 // STEP 2
 // Check if user is online
@@ -94,9 +94,9 @@ function getChannel(user, status) {
                 channelStatus = "closed";
             }
             
-            container.innerHTML = container.innerHTML + 
+            main.innerHTML = main.innerHTML + 
             `<section class="item">
-            <img src=${channelLogo} alt="logo" width="100px">
+            <img src=${channelLogo} alt="logo" class="item-img">
             <div class="item-right">
                 <h3><a href=${channelUrl} target="_blank">${user}</a></h3>
                 <p>${channelStatus}</p>
