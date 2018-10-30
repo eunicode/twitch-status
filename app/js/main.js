@@ -100,7 +100,7 @@ function getChannel(user, status) {
             <div class="item-right">
                 <h3><a href=${channelUrl} target="_blank">${user}</a></h3>
                 <p>${channelStatus}</p>
-                <p>${channelGame}</p>
+                <p class="item-subtext">${channelGame}</p>
             </div>
             </section>`
 
