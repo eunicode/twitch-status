@@ -1,4 +1,42 @@
 /* ======================================================= 
+    Variables
+========================================================== */
+
+:root {
+    --twitch-purple: #4b367c;
+    --twitch-purple-med: #6441a4;
+    --twitch-purple-light: #d3cae8;
+    --gray-dark: #212121;
+    --gray-med: #6e6779;
+    /* --gray-light: #fafafa; */
+}
+
+/* ======================================================= 
+    Typography
+========================================================== */
+
+h1 {
+    text-align: center; /* Fallback style for browsers without flexbox */
+    line-height: 1em;
+    font-size: 2em;
+    margin: 0;
+    /* background: linear-gradient(to right, white, var(--twitch-purple)); */
+    /* -webkit-background-clip: text; */
+	/* -webkit-text-fill-color: transparent; */
+}
+
+a {
+    /* color: var(--twitch-purple-light); */
+    /* color: var(--twitch-purple); */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: var(--twitch-purple-med);
+}
+
+/* ======================================================= 
     Styles
 ========================================================== */
 
@@ -10,31 +48,42 @@
 }
 
 body {
-    background: #212121;
-    color: #f5f5f5;
     font-family: sans-serif;
+    /* background: var(--gray-dark); */
+    /* background: linear-gradient(to right, #17141f, #37304a); */
+    /* color: white; */
+    color: black;
+    margin: 0;
 }
 
-h1 {
-    text-align: center; /* Fallback style for browsers without flexbox */
-    line-height: 1.5;
-    font-size: 4em;
+header {
+    padding: 1em;
+    background: var(--twitch-purple);
+    /* background: linear-gradient(to right, var(--gray-dark), var(--twitch-purple)); */
+    color: white;
+    /* color: var(--twitch-purple); */
+    /* color: var(--twitch-purple-light); */
 }
 
-/* .item {
-    max-width: 100%;
-} */
+.item {
+    /* max-width: 100%; */
+    color: var(--gray-med);
+    font-size: 0.9em;
+}
 
 .item-img {
-    width: 100px;
+    /* width: 100px; */
+    width: 20%;
+    border-radius: 3px;
 }
 
 .item-right {
-    width: calc(100% - 100px);
+    /* width: calc(100% - 100px); */
     /* .grid width = 40em --> main --> section --> .item-avatar + .item-right
     .item-right width is 40em (640px) --> .item-right p
     Need to define width to prevent text running till end of browser. */ 
-    
+    width: 80%;
+
     overflow: hidden; 
     /* The overflow CSS property specifies what to do when an 
     element's content is too large to fit in its block formatting context.
@@ -56,9 +105,15 @@ Source: https://davidwalsh.name/css-ellipsis */
     white-space: nowrap;
 }
 
+.item-subtext {
+    font-size: 0.7em;
+}
+
 footer {
+    background: var(--gray-dark);
     text-align: center;
     padding: 1em 0;
+    color: white;
 }
 
 /* ======================================================= 
@@ -76,8 +131,8 @@ footer {
     margin: 0 auto;
 }
 
-main {
-    max-width: inherit; /* 40em */
+.main-grid {
+    max-width: inherit; /* 40em. Coupled with .grid */
 }
 
 /* ------------------------------------------------------- */
@@ -96,55 +151,22 @@ main {
 
 @supports (grid-area: auto) {
 
-    /* Mobile layout */
-
-    @media screen and (min-width: 50em) { /* viewport >= 50em */
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr; /* Explicit grid track. Alternative: 40em */
-            grid-auto-rows: auto; /* Implicit grid track. Specifies size of auto-generated grid tracks. 
-            `auto` = default, size of content */
-            grid-template-areas: /* Template + named grid areas are optional here */
-                "head"
-                "main"
-                "foot";
-        }
+    .grid {
+        max-width: none;
+    }
     
-        header {
-            grid-area: head;
-        }
-    
-        main {
-            grid-area: main;
-        }
-    
-        footer {
-            grid-area: foot;
-        }
+    .main-grid {
+        max-width: 80vw;
+        margin: 0 auto; /* center */
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        grid-gap: 10px;
     }
 
-    /* Two-column layout */
-
-    @media screen and (min-width: 65em) {
-        .grid {
-            max-width: 80vw; /* Since main is `inherit`, its value is the same */
-        }
-        .main-grid {
-            display: grid;
-            grid-template-columns: 50% 50%;  
-        }
-    }
-
-    /* Three-column layout */
-    @media screen and (min-width: 78em) {
-        .main-grid {
-            grid-template-columns: repeat(3, 1fr);
-            min-height: 0;
-            min-width: 0;
-        }
-        .item {
-            overflow: hidden;
-            min-width: 0;
-        }
-    }
 }
+
+/* TODO
+Add CSS gradient
+Make text overflow fit in scrollbar
+Dark mode, light mode
+*/

@@ -71,6 +71,15 @@ The Automatic Minimum Size of Flex Items
 https://stackoverflow.com/questions/36247140/why-dont-flex-items-shrink-past-content-size
 
 --------------------------------------------------------------------------------
+GRID-TEMPLATE-COLUMNS VS GRID-AUTO-COLUMNS
+
+This generates columns depending on width of viewport.
+`grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));`
+This doesn't. This only creates one column.
+`grid-auto-columns: minmax(150px, 400px);`
+Why? 
+
+--------------------------------------------------------------------------------
 CSS LINKS
 - https://alligator.io/css/flexbox-primer/ 
 - https://css-tricks.com/snippets/css/complete-guide-grid/
