@@ -80,6 +80,19 @@ This doesn't. This only creates one column.
 Why? 
 
 --------------------------------------------------------------------------------
+PREVENT ITEMS FROM VERTICALLY STRETCHING TO FILL CONTAINER
+
+Want the height of auto-rows to be the contents' height, not the flexible height of the parent container divided by the number of rows.
+
+CSS Grid - Auto height rows, sizing to content
+https://stackoverflow.com/questions/49701408/css-grid-auto-height-rows-sizing-to-content
+
+--------------------------------------------------------------------------------
+Nested CSS grid layout different behavior in Chrome and Firefox
+https://stackoverflow.com/questions/48442629/nested-css-grid-layout-different-behavior-in-chrome-and-firefox
+
+--------------------------------------------------------------------------------
+
 CSS LINKS
 - https://alligator.io/css/flexbox-primer/ 
 - https://css-tricks.com/snippets/css/complete-guide-grid/
