@@ -28,6 +28,7 @@ h1 {
 a {
     /* color: var(--twitch-purple-light); */
     /* color: var(--twitch-purple); */
+    color: black;
     text-decoration: none;
 }
 
@@ -73,8 +74,8 @@ header {
 
 .item-img {
     /* width: 100px; */
-    width: 20%;
-    border-radius: 3px;
+    width: 40%;
+    border-radius: 5px;
 }
 
 .item-right {
@@ -82,7 +83,7 @@ header {
     /* .grid width = 40em --> main --> section --> .item-avatar + .item-right
     .item-right width is 40em (640px) --> .item-right p
     Need to define width to prevent text running till end of browser. */ 
-    width: 80%;
+    width: 60%;
 
     overflow: hidden; 
     /* The overflow CSS property specifies what to do when an 
@@ -151,15 +152,52 @@ footer {
 
 @supports (grid-area: auto) {
 
+    /* Reset width */
+
     .grid {
         max-width: none;
     }
     
+    /* Sticky footer */
+
+    .grid {
+        display: grid;
+        min-height: 100vh;
+        grid-template-rows: auto 1fr auto;
+        /* grid-template-rows: auto 10px 1fr 10px auto; */
+        /* grid-template-areas: 
+            "head"
+            "."
+            "main"
+            "."
+            "foot"; */
+    }
+    
+    /* .item {
+        align-items: center;
+    } */
+
+    /*header {
+        grid-area: head;
+    }
+
+    .main-grid {
+        grid-area: main;
+    }
+
+    footer {
+        grid-area: foot;
+    }*/
+
+    /* Nested grid */
+
     .main-grid {
         max-width: 80vw;
         margin: 0 auto; /* center */
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* responsive layout without media queries */
+        grid-auto-rows: minmax(min-content, max-content); /* prevents automatic vertical stretching of items */
+        /* align-content: center; // aligns items vertically */
         grid-gap: 10px;
     }
 
