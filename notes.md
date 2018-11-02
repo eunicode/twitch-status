@@ -92,6 +92,11 @@ Nested CSS grid layout different behavior in Chrome and Firefox
 https://stackoverflow.com/questions/48442629/nested-css-grid-layout-different-behavior-in-chrome-and-firefox
 
 --------------------------------------------------------------------------------
+Can't add margin-top to .main-grid
+How to add spacing without HTML markup?
+Use grid areas or grid lines?
+
+--------------------------------------------------------------------------------
 
 CSS LINKS
 - https://alligator.io/css/flexbox-primer/ 
