@@ -1,5 +1,7 @@
 import api from "../api.js";
 
+// Bad global variables
+
 const clientID = api.clientID;
 // console.log('clientID: ', clientID);
 
@@ -7,6 +9,8 @@ const users = [
   "freecodecamp",
   "noopkat",
   "funfunfunction",
+  "jsthegame",
+  "cscareerhackers",
   "cowsep",
   "followgrubby",
   "trikslyr"
@@ -119,10 +123,12 @@ for (let i = 0; i < users.length; i++) {
 // Get rid of global variables
 // Promises
 // DRY up code with OOJS?
-// Sticky footer (in the case of zero users)
 // Add BEM classes
 // Add colored dot to signal if user is online/offline
 // Add color to username to signal if user is online/offline
 // Sort online users to the top
 // Add tabs for offline, online users
 // Add ability to search and add/remove users
+
+// DONE
+// Sticky footer (in the case of zero users)
