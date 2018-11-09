@@ -37,6 +37,10 @@ a:hover {
     color: var(--twitch-purple-med);
 }
 
+.a-dark-theme {
+    color: var(--twitch-purple-light);
+}
+
 /* ======================================================= 
     Styles
 ========================================================== */
@@ -115,6 +119,7 @@ footer {
     text-align: center;
     padding: 1em 0;
     color: white;
+    margin-top: 4em;
 }
 
 /* ======================================================= 
