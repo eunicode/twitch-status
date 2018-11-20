@@ -1,9 +1,13 @@
-import api from "../api.js";
+require('dotenv').config();
+
+const clientID = process.env.TWITCH_CLIENT_ID;
+console.log({ clientID });
+
+// import api from "../api.js";
+// const clientID = api.clientID;
+// console.log('clientID: ', clientID);
 
 // Bad global variables
-
-const clientID = api.clientID;
-// console.log('clientID: ', clientID);
 
 const users = [
   "freecodecamp",
