@@ -1,5 +1,8 @@
+# Production
+/build
+
 # Dependency directories
-node_modules/
+/node_modules
 
 # Optional npm cache directory
 .npm
@@ -10,9 +13,6 @@ node_modules/
 
 # Optional eslint cache
 .eslintcache
-
-# Production
-build
 
 # Logs
 logs
@@ -32,3 +32,10 @@ Thumbs.db
 
 # API key file
 api.js
+
+# Misc
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
