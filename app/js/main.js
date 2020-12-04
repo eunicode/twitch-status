@@ -1,14 +1,15 @@
-require('dotenv').config();
+// require('dotenv').config();
 
-const clientID = process.env.TWITCH_CLIENT_ID;
-console.log({ clientID });
+// const clientID = process.env.TWITCH_CLIENT_ID;
+// console.log({ clientID });
+
+import { auth } from "../secrets.js";
 
 // import api from "../api.js";
 // const clientID = api.clientID;
 // console.log('clientID: ', clientID);
 
-// Bad global variables
-
+// Bad global variable
 const users = [
   "freecodecamp",
   "noopkat",
@@ -20,7 +21,74 @@ const users = [
   "trikslyr"
 ];
 
-let main = document.querySelector("main");
+const url = 'https://api.twitch.tv/helix/streams';
+
+async function myFetch() {
+  const response = await fetch(
+    // resource
+    url + '?user_login=quackityhq',
+    // `init` object
+    {
+      headers: {
+        'Client-ID': auth.clientID,
+        // Accept: 'application/vnd.twitchtv.v5+json',
+        Authorization: 'Bearer ' + auth.clientToken
+      }
+    }
+  )
+  
+  let response2 = await response.json()
+  console.log(response)
+  console.log(response2)
+}
+
+myFetch()
+
+// JSON output
+// data: Array(1)
+// 0:
+// game_id: "27471"
+// game_name: "Minecraft"
+// id: "40807281662"
+// language: "en"
+// started_at: "2020-12-04T03:56:45Z"
+// tag_ids: ["6ea6bca4-4712-4ab9-a906-e3336a9d8039"]
+// thumbnail_url: "https://static-cdn.jtvnw.net/previews-ttv/live_user_quackityhq-{width}x{height}.jpg"
+// title: "GEORGE HAS JUST BEEN DETHRONED"
+// type: "live"
+// user_id: "48526626"
+// user_name: "QuackityHQ"
+// viewer_count: 63548
+// __proto__: Object
+// length: 1
+// __proto__: Array(0)
+// pagination: {}
+
+// IGNORE CODE BELOW
+
+// Iterate array and run code for each element
+for (const user of users) {
+  // actionBundle(user)
+}
+
+function actionBundle(user) {
+  let main = document.querySelector("main");
+  // 1. Check if user is online
+  // 2. Get user data
+  // 3. Build DOM
+}
+
+// function getStatus() {
+
+// }
+
+// function getData() {
+
+// }
+
+// function buildDom() {
+
+// }
 
 // STEP 2
 // Check if user is online
@@ -40,7 +108,9 @@ function getStatus(user) {
   // https://dev.twitch.tv/docs/v5/reference/streams/#get-stream-by-user
   request.open(
     "GET",
-    `https://api.twitch.tv/kraken/streams/${user}?client_id=${clientID}`,
+    `https://api.twitch.tv/helix/streams/${user}?client_id=${clientID}`,
+    // `https://twitch-proxy.freecodecamp.rocks/streams/${user}`,
+    // `https://api.twitch.tv/kraken/streams/${user}?client_id=${clientID}`,
     true // async argument
   );
 
@@ -81,7 +151,8 @@ function getChannel(user, status) {
     // https://dev.twitch.tv/docs/v5/reference/channels/#get-channel-by-id
     request.open(
         "GET", 
-        `https://api.twitch.tv/kraken/channels/${user}?client_id=${clientID}`,
+        `https://api.twitch.tv/helix/channels/${user}?client_id=${clientID}`,
+        // `https://api.twitch.tv/kraken/channels/${user}?client_id=${clientID}`,
         true
     );
 
@@ -120,9 +191,10 @@ function getChannel(user, status) {
 
 // STEP 1
 for (let i = 0; i < users.length; i++) {
-    getStatus(users[i]);
+    // getStatus(users[i]);
 }
 
+/* -------------------------------------------------------------------------- */
 // TO DO 
 // Get rid of global variables
 // Promises
@@ -136,3 +208,8 @@ for (let i = 0; i < users.length; i++) {
 
 // DONE
 // Sticky footer (in the case of zero users)
+
+/* -------------------------------------------------------------------------- */
+
+
+ 
