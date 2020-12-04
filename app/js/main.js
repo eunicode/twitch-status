@@ -16,9 +16,9 @@ const USERS = [
   "funfunfunction",
   "jsthegame",
   "cscareerhackers",
-  "cowsep",
-  "followgrubby",
-  "trikslyr",
+  "riotgames",
+  "tfue",
+  "myth",
 ];
 
 // Bad global variable
@@ -41,6 +41,14 @@ document.querySelector("#a-auth").setAttribute(
   )}&response_type=token`
 );
 
+// let user = 'ninja'
+// let url1 = `${ept.URL_USER}?login=${user}`
+// let url2 = `${ept.URL_STREAM}?user_login=${user}`
+// Promise.all( [fetchJson(url1), fetchJson(url2) ] ).then( resolvedValue => {
+// console.log(resolvedValue)
+// buildDom(resolvedValue[0], resolvedValue[1])
+// })
+
 // If user chooses to authenticate
 // Location.hash returns a string containing a '#' followed by the fragment identifier of the URL
 if (document.location.hash) {
@@ -51,16 +59,25 @@ if (document.location.hash) {
   if (accessToken) {
     // Iterate array and run code for each element
     for (const user of USERS) {
-      // let userJson = fetchJson(`${ept.URL_USER}?user_login=${user}`);
-      // let userStatus = fetchJson(`${ept.URL_STREAM}?login=${user}`);
+      // let userJson = fetchJson(`${ept.URL_USER}?login=${user}`);
+      // let userStatus = fetchJson(`${ept.URL_STREAM}?user_login=${user}`);
       // buildDom(userJson, userStatus);
 
-      fetchJson(`${ept.URL_USER}?login=${user}`).then(
-        resolvedValue => {
+      let url1 = `${ept.URL_USER}?login=${user}`
+      console.log(url1)
+      let url2 = `${ept.URL_STREAM}?user_login=${user}`
+       Promise.all( [fetchJson(url1), fetchJson(url2)] ).then(resolvedValue => {
+        console.log('uh', resolvedValue)
+        buildDom(resolvedValue[0], resolvedValue[1])
+       } )
+      // Promise.all([url1, url2].map(url => fetchJson(url))).then(resolvedValue => buildDom(resolvedValue[0], resolvedValue[1]))
+
+      // fetchJson(`${ept.URL_USER}?login=${user}`).then(
+      //   resolvedValue => {
        
-          buildDom(resolvedValue, {data: []})
-        }
-      )
+      //     buildDom(resolvedValue, {data: []})
+      //   }
+      // )
       
     }
   }
@@ -126,8 +143,8 @@ async function fetchJson(url) {
 }
 
 function buildDom(userData, userStatus) {
-  console.log(userData)
-  let data = userData.data[0];
+  console.log('hi', userData) // Promise pending
+  let data = userData.data[0]; // can't read property '0' of undefined 
   
   let userOnlineStatus = userStatus.data[0] !== undefined ? 'live' : 'offline';
   let userUrl = `https://twitch.tv/${data.login}`;
