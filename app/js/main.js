@@ -22,27 +22,82 @@ const users = [
 ];
 
 const url = 'https://api.twitch.tv/helix/streams';
+const urlauth = 'https://id.twitch.tv/oauth2/authenticate'
+// const urlauth = 'https://id.twitch.tv/oauth2/validate'
+const CLIENT_ID = auth.clientId
+console.log(CLIENT_ID)
+const URL_REDIRECT = 'http://localhost:3000'
+// const urlredirect = 'https://eunicode.github.io/twitch-status/'
+// Example return url https://website.com/#access_token=1111111&scope=&token_type=bearer
 
-async function myFetch() {
+// Set form URL 
+// How long does this take?
+// window.addEventListener('load', (event) => {
+//   document.querySelector("#form-auth").setAttribute('action', 
+//   // 'google.com'
+//   `${urlauth}?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(URL_REDIRECT)}&response_type=token`
+//   )
+// })
+document.querySelector('#a-auth').setAttribute('href',
+'https://id.twitch.tv/oauth2/authorize?client_id=' + CLIENT_ID + '&redirect_uri=' + encodeURIComponent(URL_REDIRECT) + '&response_type=token'
+// `https://id.twitch.tv/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${URL_REDIRECT}&response_type=token&scope=channel:read:stream_key`
+)
+
+// IGNORE CODE BELOW
+
+// If user chose to authenticate
+// Location.hash returns a string containing a '#' followed by the fragment identifier of the URL
+if (document.location.hash) {
+  // Get access token from URL
+  let parsedHash = new URLSearchParams(window.location.hash.substr(1));
+
+  if (parsedHash.get('access_token')) {
+    let accessToken = parsedHash.get('access_token');
+    document.querySelector('#main-api').textContent = 'Loading';
+
+    async function myFetch() {
   const response = await fetch(
     // resource
     url + '?user_login=quackityhq',
     // `init` object
     {
       headers: {
-        'Client-ID': auth.clientID,
+        'Client-ID': CLIENT_ID,
         // Accept: 'application/vnd.twitchtv.v5+json',
-        Authorization: 'Bearer ' + auth.clientToken
+        Authorization: `Bearer ${accessToken}`
       }
     }
   )
   
-  let response2 = await response.json()
-  console.log(response)
-  console.log(response2)
+  let responseJson = await response.json()
+  console.log(responseJson)
 }
 
 myFetch()
+
+  }
+}
+
+// async function myFetch() {
+//   const response = await fetch(
+//     // resource
+//     url + '?user_login=quackityhq',
+//     // `init` object
+//     {
+//       headers: {
+//         'Client-ID': auth.clientID,
+//         // Accept: 'application/vnd.twitchtv.v5+json',
+//         Authorization: 'Bearer ' + auth.clientToken
+//       }
+//     }
+//   )
+  
+//   let response2 = await response.json()
+//   console.log(response)
+//   console.log(response2)
+// }
+
+// myFetch()
 
 // JSON output
 // data: Array(1)
@@ -63,6 +118,9 @@ myFetch()
 // length: 1
 // __proto__: Array(0)
 // pagination: {}
+
+
+
 
 // IGNORE CODE BELOW
 
