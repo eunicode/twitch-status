@@ -10,7 +10,7 @@ import { auth } from "../secrets.js";
 // console.log('clientID: ', clientID);
 
 // Bad global variable
-const users = [
+const USERS = [
   "freecodecamp",
   "noopkat",
   "funfunfunction",
@@ -18,242 +18,145 @@ const users = [
   "cscareerhackers",
   "cowsep",
   "followgrubby",
-  "trikslyr"
+  "trikslyr",
 ];
 
-const url = 'https://api.twitch.tv/helix/streams';
-const urlauth = 'https://id.twitch.tv/oauth2/authenticate'
-// const urlauth = 'https://id.twitch.tv/oauth2/validate'
-const CLIENT_ID = auth.clientId
-console.log(CLIENT_ID)
-const URL_REDIRECT = 'http://localhost:3000'
-// const urlredirect = 'https://eunicode.github.io/twitch-status/'
-// Example return url https://website.com/#access_token=1111111&scope=&token_type=bearer
+// Bad global variable
+let ept = {
+  CLIENT_ID: auth.clientId,
+  URL_STREAM: "https://api.twitch.tv/helix/streams",
+  URL_USER: "https://api.twitch.tv/helix/users",
+  URL_AUTH: "https://id.twitch.tv/oauth2/authorize",
+  URL_REDIRECT: "http://localhost:3000",
+  // URL_REDIRECT = 'https://eunicode.github.io/twitch-status/'
+  ACCESS_TOKEN: "",
+};
 
-// Set form URL 
-// How long does this take?
-// window.addEventListener('load', (event) => {
-//   document.querySelector("#form-auth").setAttribute('action', 
-//   // 'google.com'
-//   `${urlauth}?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(URL_REDIRECT)}&response_type=token`
-//   )
-// })
-document.querySelector('#a-auth').setAttribute('href',
-'https://id.twitch.tv/oauth2/authorize?client_id=' + CLIENT_ID + '&redirect_uri=' + encodeURIComponent(URL_REDIRECT) + '&response_type=token'
-// `https://id.twitch.tv/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${URL_REDIRECT}&response_type=token&scope=channel:read:stream_key`
-)
+// Set login button's link to Twitch login URL
+document.querySelector("#a-auth").setAttribute(
+  "href",
+  // 'https://id.twitch.tv/oauth2/authorize?client_id=' + CLIENT_ID + '&redirect_uri=' + encodeURIComponent(URL_REDIRECT) + '&response_type=token'
+  `${ept.URL_AUTH}?client_id=${ept.CLIENT_ID}&redirect_uri=${encodeURIComponent(
+    ept.URL_REDIRECT
+  )}&response_type=token`
+);
 
-// IGNORE CODE BELOW
-
-// If user chose to authenticate
+// If user chooses to authenticate
 // Location.hash returns a string containing a '#' followed by the fragment identifier of the URL
 if (document.location.hash) {
   // Get access token from URL
-  let parsedHash = new URLSearchParams(window.location.hash.substr(1));
+  let accessToken = getAccessToken();
+  ept.ACCESS_TOKEN = accessToken; // make access_token "global"
 
-  if (parsedHash.get('access_token')) {
-    let accessToken = parsedHash.get('access_token');
-    document.querySelector('#main-api').textContent = 'Loading';
+  if (accessToken) {
+    // Iterate array and run code for each element
+    for (const user of USERS) {
+      // let userJson = fetchJson(`${ept.URL_USER}?user_login=${user}`);
+      // let userStatus = fetchJson(`${ept.URL_STREAM}?login=${user}`);
+      // buildDom(userJson, userStatus);
 
-    async function myFetch() {
-  const response = await fetch(
-    // resource
-    url + '?user_login=quackityhq',
-    // `init` object
-    {
-      headers: {
-        'Client-ID': CLIENT_ID,
-        // Accept: 'application/vnd.twitchtv.v5+json',
-        Authorization: `Bearer ${accessToken}`
-      }
+      fetchJson(`${ept.URL_USER}?login=${user}`).then(
+        resolvedValue => {
+       
+          buildDom(resolvedValue, {data: []})
+        }
+      )
+      
     }
-  )
-  
-  let responseJson = await response.json()
-  console.log(responseJson)
-}
-
-myFetch()
-
   }
 }
 
-// async function myFetch() {
-//   const response = await fetch(
-//     // resource
-//     url + '?user_login=quackityhq',
-//     // `init` object
-//     {
-//       headers: {
-//         'Client-ID': auth.clientID,
-//         // Accept: 'application/vnd.twitchtv.v5+json',
-//         Authorization: 'Bearer ' + auth.clientToken
-//       }
-//     }
-//   )
+//   // Get access token from URL
+// let accessToken = getAccessToken();
   
-//   let response2 = await response.json()
-//   console.log(response)
-//   console.log(response2)
-// }
+//   if (accessToken) {
+//     ept.ACCESS_TOKEN = accessToken; // make access_token "global"
 
-// myFetch()
+//     // Iterate array and run code for each element
+//     for (const user of USERS) {
+//       // let responseJson;
 
-// JSON output
-// data: Array(1)
-// 0:
-// game_id: "27471"
-// game_name: "Minecraft"
-// id: "40807281662"
-// language: "en"
-// started_at: "2020-12-04T03:56:45Z"
-// tag_ids: ["6ea6bca4-4712-4ab9-a906-e3336a9d8039"]
-// thumbnail_url: "https://static-cdn.jtvnw.net/previews-ttv/live_user_quackityhq-{width}x{height}.jpg"
-// title: "GEORGE HAS JUST BEEN DETHRONED"
-// type: "live"
-// user_id: "48526626"
-// user_name: "QuackityHQ"
-// viewer_count: 63548
-// __proto__: Object
-// length: 1
-// __proto__: Array(0)
-// pagination: {}
-
-
-
-
-// IGNORE CODE BELOW
-
-// Iterate array and run code for each element
-for (const user of users) {
-  // actionBundle(user)
-}
-
-function actionBundle(user) {
-  let main = document.querySelector("main");
-  // 1. Check if user is online
-  // 2. Get user data
-  // 3. Build DOM
-}
-
-// function getStatus() {
-
-// }
-
-// function getData() {
-
-// }
-
-// function buildDom() {
-
-// }
-
-// STEP 2
-// Check if user is online
-function getStatus(user) {
-  let request;
-  let response;
-  let status;
-
-  // Send an HTTP request
-
-  // 1. Create an XMLHttpRequest object with XHR constructor
-  request = new XMLHttpRequest();
-  console.log("XMLHttpRequest object: ", request);
-
-  // 2. Open a URL. Call open() to initialize new XMLHttpRequest object
-  // Get stream information for a specified user
-  // https://dev.twitch.tv/docs/v5/reference/streams/#get-stream-by-user
-  request.open(
-    "GET",
-    `https://api.twitch.tv/helix/streams/${user}?client_id=${clientID}`,
-    // `https://twitch-proxy.freecodecamp.rocks/streams/${user}`,
-    // `https://api.twitch.tv/kraken/streams/${user}?client_id=${clientID}`,
-    true // async argument
-  );
-
-  // 4. If request (XMLHttpRequest transaction) completes successfully, the callback function will be called.
-  request.onload = function() {
-    if (request.status >= 200 && request.status < 400) {
-      response = JSON.parse(request.responseText);
-      console.log("response: ", response);  
-
-      if (response.stream === undefined) {
-        status = "closed";
-
-      } else {
-        status = response.stream !== null ? "online" : "offline";
-        console.log("status: ", status);
-      }
-    }
-
-    getChannel(user, status);
-  };
-
-  // 3. Call send() to send the request to the server
-  request.send();
-}
-
-// STEP 3
-function getChannel(user, status) {
-    let request;
-    let response;
-    let channelStatus;
-    // let channelName;
-    let channelUrl;
-    let channelLogo;
-    let channelGame;
-
-    request = new XMLHttpRequest();
-
-    // https://dev.twitch.tv/docs/v5/reference/channels/#get-channel-by-id
-    request.open(
-        "GET", 
-        `https://api.twitch.tv/helix/channels/${user}?client_id=${clientID}`,
-        // `https://api.twitch.tv/kraken/channels/${user}?client_id=${clientID}`,
-        true
-    );
-
-    request.onload = function() {
-        if (request.status >= 200 && request.status < 400) {
-            response = JSON.parse(request.responseText);
-            console.log("response: ", response);
-            // channelName = response.display_name;
-            channelUrl = response.url;
-            channelLogo = response.logo;
-            channelGame = response.game;
-
-            if (status === "online") {
-                channelStatus = `online: ${response.status}`;
-            } else if (status === "offline") {
-                channelStatus = "offline";
-            } else {
-                channelStatus = "closed";
-            }
-            
-            main.innerHTML = main.innerHTML + 
-            `<section class="item">
-            <img src=${channelLogo} alt="logo" class="item-img">
-            <div class="item-right">
-                <h3><a href=${channelUrl} target="_blank">${user}</a></h3>
-                <p>${channelStatus}</p>
-                <p class="item-subtext">${channelGame}</p>
-            </div>
-            </section>`
-
-        }
-    }
-
-    request.send();
-}
-
-// STEP 1
-for (let i = 0; i < users.length; i++) {
-    // getStatus(users[i]);
-}
+//       fetchJson(user ).then(
+//         resolvedValue => {
+          
+//           buildDom(resolvedValue)
+//         }
+//       )
+//       // responseJson = await fetchJson(user);
+//       // buildDom(responseJson);
+//     }
+//   }
 
 /* -------------------------------------------------------------------------- */
-// TO DO 
+// HELPER FUNCTIONS
+
+function getAccessToken() {
+  let parsedHash = new URLSearchParams(window.location.hash.substr(1));
+  let accessToken = parsedHash.get("access_token");
+  return accessToken;
+}
+
+function domLoading() {
+  document.querySelector("#main-api").textContent = "Loading";
+}
+
+async function fetchJson(url) {
+  
+  const response = await fetch(
+    `${url}`, // resource
+    // ept.URL_STREAM + "?user_login=cnstv1994", 
+    {
+      headers: {          // `init` object
+        "Client-ID": ept.CLIENT_ID,
+        // Accept: 'application/vnd.twitchtv.v5+json',
+        Authorization: `Bearer ${ept.ACCESS_TOKEN}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      `API request failed. HTTP response status code: ${response.status}`
+    );
+  } else {
+    let responseJson = await response.json();
+    // console.log(responseJson);
+    return responseJson;
+  }
+}
+
+function buildDom(userData, userStatus) {
+  console.log(userData)
+  let data = userData.data[0];
+  
+  let userOnlineStatus = userStatus.data[0] !== undefined ? 'live' : 'offline';
+  let userUrl = `https://twitch.tv/${data.login}`;
+  // let userUrl = `https://twitch.tv/${data.user_name}`;
+  let userIcon = data.profile_image_url
+  // let userIcon = data.thumbnail_url;
+  let userName = data.login
+  let userDescription = data.description
+  // let userGameTitle = data.title;
+  // let userName = data.user_name;
+
+  let main = document.querySelector("#main-api");
+  
+  main.innerHTML =
+    main.innerHTML +
+    `<section class="item">
+            <img src=${userIcon} alt="user icon" class="item-img">
+            <div class="item-right">
+                <h3><a href=${userUrl} target="_blank">${userName}</a></h3>
+                <p>${userOnlineStatus}</p>
+                <p class="item-subtext">${userDescription}</p>
+            </div>
+            </section>`;
+}
+
+
+
+/* -------------------------------------------------------------------------- */
+// TO DO
 // Get rid of global variables
 // Promises
 // DRY up code with OOJS?
@@ -264,10 +167,31 @@ for (let i = 0; i < users.length; i++) {
 // Add tabs for offline, online users
 // Add ability to search and add/remove users
 
+/*
+Store user access token in local storage */
 // DONE
 // Sticky footer (in the case of zero users)
 
 /* -------------------------------------------------------------------------- */
 
+/*
 
- 
+
+
+https://dev.twitch.tv/docs/authentication
+
+Authentication involves:
+1. Registering your app to obtain a client ID and client secret.
+2. Getting a token. This includes specifying scopes, the permissions your app requires.
+3. Sending the token in your API request, to authenticate API requests.
+
+User access tokens = Authenticate users and allow your app to make requests on their behalf. If your application uses Twitch for login or makes requests in the context of an authenticated user, you need to generate a user access token.
+
+authentication flows
+Implicit code flow	= Your app does not use a server, such as a client-side JavaScript app or mobile app. This approach does not require a server that must make requests to the API.
+Authorization code flow	= Your application uses a server, can securely store a client secret, and can make server-to-server requests.
+Client credentials flow	= You need an app access token.
+
+OAuth implicit code flow
+https://dev.twitch.tv/docs/authentication/getting-tokens-oauth#oauth-implicit-code-flow
+ */
