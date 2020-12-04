@@ -17,7 +17,12 @@
         </header>
 
         <div></div> <!-- Empty row with grid for spacing -->
-
+        <div class="info">Authentication is now required to access the Twitch API. Since this is a client-side app, it uses implicit authentication (the user's own OAuth token). This means you will have to sign in to your Twitch account to use this site to query the Twitch API. If you don't have a Twitch account, you can view this site with dummy data.</div>
+        <a href ="" id="a-auth">Go to Twitch authentication</a>
+        <!-- <form id="form-auth">
+            <input type="submit" value="Go to Twitch authentication" class="input-auth" /> 
+        </form> -->
+        <!-- Tiles with dummy data -->
         <main class="main-grid">
             <!-- Programmatically add user sections to the DOM -->
             <!-- Example section
@@ -33,6 +38,8 @@
             </section>
             -->
         </main>
+        <!-- Tiles to be shown if you're using data from Twitch API-->
+        <main class="main-grid" id="main-api"></main>
 
         <footer>Coded by <a href="https://github.com/eunicode" class="a-dark-theme">eunicode</a></footer>
 
