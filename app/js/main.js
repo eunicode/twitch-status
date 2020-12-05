@@ -58,51 +58,35 @@ if (document.location.hash) {
 
   if (accessToken) {
     // Iterate array and run code for each element
+    let urlUser = `${ept.URL_USER}?`;
+    let urlStream = `${ept.URL_STREAM}?`;
+
+    // Use one API call to get data for multiple users
     for (const user of USERS) {
-      // let userJson = fetchJson(`${ept.URL_USER}?login=${user}`);
-      // let userStatus = fetchJson(`${ept.URL_STREAM}?user_login=${user}`);
-      // buildDom(userJson, userStatus);
-
-      let url1 = `${ept.URL_USER}?login=${user}`
-      console.log(url1)
-      let url2 = `${ept.URL_STREAM}?user_login=${user}`
-       Promise.all( [fetchJson(url1), fetchJson(url2)] ).then(resolvedValue => {
-        console.log('uh', resolvedValue)
-        buildDom(resolvedValue[0], resolvedValue[1])
-       } )
-      // Promise.all([url1, url2].map(url => fetchJson(url))).then(resolvedValue => buildDom(resolvedValue[0], resolvedValue[1]))
-
-      // fetchJson(`${ept.URL_USER}?login=${user}`).then(
-      //   resolvedValue => {
-       
-      //     buildDom(resolvedValue, {data: []})
-      //   }
-      // )
-      
+      urlUser += `&login=${user}`;
+      urlStream += `&user_login=${user}`;
     }
+
+    sequentialAsyncTaskWrapper(urlUser, urlStream)
   }
 }
 
-//   // Get access token from URL
-// let accessToken = getAccessToken();
-  
-//   if (accessToken) {
-//     ept.ACCESS_TOKEN = accessToken; // make access_token "global"
+async function sequentialAsyncTaskWrapper(urlUser, urlStream) { // Alternatively, use rest syntax to receive any number of args
+  let userData = await fetchJson(urlUser);
+  let streamData = await fetchJson(urlStream);
+  let streamSet = new Set()
 
-//     // Iterate array and run code for each element
-//     for (const user of USERS) {
-//       // let responseJson;
+  // Create set of online users, O(1) lookup
+  for (let streamer of streamData.data) {
+    streamSet.add(streamer.user_name.toLowerCase())
+  }
 
-//       fetchJson(user ).then(
-//         resolvedValue => {
-          
-//           buildDom(resolvedValue)
-//         }
-//       )
-//       // responseJson = await fetchJson(user);
-//       // buildDom(responseJson);
-//     }
-//   }
+  for (let user of userData.data) {
+    buildDom(user, streamSet);
+  }
+
+  // Alternatively, use `await Promise.all(asyncTask1(), asyncTask2())`
+}
 
 /* -------------------------------------------------------------------------- */
 // HELPER FUNCTIONS
@@ -118,12 +102,12 @@ function domLoading() {
 }
 
 async function fetchJson(url) {
-  
   const response = await fetch(
     `${url}`, // resource
-    // ept.URL_STREAM + "?user_login=cnstv1994", 
+    // ept.URL_STREAM + "?user_login=cnstv1994",
     {
-      headers: {          // `init` object
+      headers: {
+        // `init` object
         "Client-ID": ept.CLIENT_ID,
         // Accept: 'application/vnd.twitchtv.v5+json',
         Authorization: `Bearer ${ept.ACCESS_TOKEN}`,
@@ -143,21 +127,20 @@ async function fetchJson(url) {
 }
 
 function buildDom(userData, userStatus) {
-  console.log('hi', userData) // Promise pending
-  let data = userData.data[0]; // can't read property '0' of undefined 
-  
-  let userOnlineStatus = userStatus.data[0] !== undefined ? 'live' : 'offline';
-  let userUrl = `https://twitch.tv/${data.login}`;
+  // console.log("hi", userData); // Promise pending
+  // let data = userData.data[0]; // can't read property '0' of undefined
+  let userName = userData.login;
+  let userOnlineStatus = userStatus.has(userName.toLowerCase()) ? "live" : "offline";
+  let userUrl = `https://twitch.tv/${userData.login}`;
   // let userUrl = `https://twitch.tv/${data.user_name}`;
-  let userIcon = data.profile_image_url
+  let userIcon = userData.profile_image_url;
   // let userIcon = data.thumbnail_url;
-  let userName = data.login
-  let userDescription = data.description
+  let userDescription = userData.description;
   // let userGameTitle = data.title;
   // let userName = data.user_name;
 
   let main = document.querySelector("#main-api");
-  
+
   main.innerHTML =
     main.innerHTML +
     `<section class="item">
@@ -169,8 +152,6 @@ function buildDom(userData, userStatus) {
             </div>
             </section>`;
 }
-
-
 
 /* -------------------------------------------------------------------------- */
 // TO DO

@@ -135,3 +135,26 @@
   ],
   "pagination": {}
 }
+
+/*
+https://dev.twitch.tv/docs/api
+
+Get streams
+{
+  data:[ { stream_data }],
+  pagination: {} 
+}
+
+game_id: "508402"
+game_name: "Live"
+id: "40217227276"
+language: "ro"
+started_at: "2020-12-03T13:45:24Z"
+tag_ids: (2) ["75a99c80-0f15-4159-b1fd-3812c25b4aca", "77017b7b-6b98-4f0d-bd39-3ba96b66ec7a"]
+thumbnail_url: "https://static-cdn.jtvnw.net/previews-ttv/live_user_cnstv1994-{width}x{height}.jpg"
+title: "CNS TV (STREAM) LIVE!"
+type: "live"
+user_id: "274890004"
+user_name: "cnstv1994"
+viewer_count: 2
+ */
