@@ -259,7 +259,7 @@ footer {
             max-width: 80vw;
             margin: 0 auto;
             display: grid;
-            grid-auto-rows: auto;
+            grid-auto-rows: minmax(min-content, max-content);
             grid-template-columns: repeat(3, 1fr);
             grid-template-areas: 
             "t1 t1 t1"
