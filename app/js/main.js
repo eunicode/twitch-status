@@ -1,13 +1,4 @@
-// require('dotenv').config();
-
-// const clientID = process.env.TWITCH_CLIENT_ID;
-// console.log({ clientID });
-
 import { auth } from "../secrets.js";
-
-// import api from "../api.js";
-// const clientID = api.clientID;
-// console.log('clientID: ', clientID);
 
 // Bad global variable
 const USERS = [
@@ -28,7 +19,7 @@ let ept = {
   URL_USER: "https://api.twitch.tv/helix/users",
   URL_AUTH: "https://id.twitch.tv/oauth2/authorize",
   URL_REDIRECT: "http://localhost:3000",
-  // URL_REDIRECT = 'https://eunicode.github.io/twitch-status/'
+  // URL_REDIRECT = 'https://eunicode.github.io/twitch-status/',
   ACCESS_TOKEN: "",
 };
 
@@ -40,14 +31,6 @@ document.querySelector("#a-auth").setAttribute(
     ept.URL_REDIRECT
   )}&response_type=token`
 );
-
-// let user = 'ninja'
-// let url1 = `${ept.URL_USER}?login=${user}`
-// let url2 = `${ept.URL_STREAM}?user_login=${user}`
-// Promise.all( [fetchJson(url1), fetchJson(url2) ] ).then( resolvedValue => {
-// console.log(resolvedValue)
-// buildDom(resolvedValue[0], resolvedValue[1])
-// })
 
 // If user chooses to authenticate
 // Location.hash returns a string containing a '#' followed by the fragment identifier of the URL
@@ -72,8 +55,8 @@ if (document.location.hash) {
 }
 
 async function sequentialAsyncTaskWrapper(urlUser, urlStream) { // Alternatively, use rest syntax to receive any number of args
-  let userData = await fetchJson(urlUser);
-  let streamData = await fetchJson(urlStream);
+  let userData = await fetchJson(urlUser); // Step 1. These are sequential
+  let streamData = await fetchJson(urlStream); // Step 2. 
   let streamSet = new Set()
 
   // Create set of online users, O(1) lookup
@@ -147,7 +130,7 @@ function buildDom(userData, userStatus) {
             <img src=${userIcon} alt="user icon" class="item-img">
             <div class="item-right">
                 <h3><a href=${userUrl} target="_blank">${userName}</a></h3>
-                <p>${userOnlineStatus}</p>
+                <p class=${userOnlineStatus === 'live' ? 'text-online' : 'text-offline'}>${userOnlineStatus}</p>
                 <p class="item-subtext">${userDescription}</p>
             </div>
             </section>`;
@@ -166,7 +149,9 @@ function buildDom(userData, userStatus) {
 // Add ability to search and add/remove users
 
 /*
-Store user access token in local storage */
+Store user access token in local storage 
+*/
+
 // DONE
 // Sticky footer (in the case of zero users)
 
