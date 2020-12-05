@@ -21,7 +21,16 @@ let ept = {
   URL_REDIRECT: "http://localhost:3000",
   // URL_REDIRECT = 'https://eunicode.github.io/twitch-status/',
   ACCESS_TOKEN: "",
+  INIT_OBJ: "",
 };
+
+// Bad global variable
+let nodeDummy = document.querySelector("#main-dummy")
+let nodeApi = document.querySelector("#main-api");
+
+// Build dummy grid
+sequentialAsyncTaskWrapper('../data/simulatedDataUser.json', 
+'../data/simulatedDataStream.json', nodeDummy)
 
 // Set login button's link to Twitch login URL
 document.querySelector("#a-auth").setAttribute(
@@ -40,6 +49,9 @@ if (document.location.hash) {
   ept.ACCESS_TOKEN = accessToken; // make access_token "global"
 
   if (accessToken) {
+    // Hide dummy grid
+    hideDom();
+
     // Iterate array and run code for each element
     let urlUser = `${ept.URL_USER}?`;
     let urlStream = `${ept.URL_STREAM}?`;
@@ -50,11 +62,11 @@ if (document.location.hash) {
       urlStream += `&user_login=${user}`;
     }
 
-    sequentialAsyncTaskWrapper(urlUser, urlStream)
+    sequentialAsyncTaskWrapper(urlUser, urlStream, nodeApi)
   }
 }
 
-async function sequentialAsyncTaskWrapper(urlUser, urlStream) { // Alternatively, use rest syntax to receive any number of args
+async function sequentialAsyncTaskWrapper(urlUser, urlStream, node) { // Alternatively, use rest syntax to receive any number of args
   let userData = await fetchJson(urlUser); // Step 1. These are sequential
   let streamData = await fetchJson(urlStream); // Step 2. 
   let streamSet = new Set()
@@ -65,7 +77,7 @@ async function sequentialAsyncTaskWrapper(urlUser, urlStream) { // Alternatively
   }
 
   for (let user of userData.data) {
-    buildDom(user, streamSet);
+    buildDom(user, streamSet, node);
   }
 
   // Alternatively, use `await Promise.all(asyncTask1(), asyncTask2())`
@@ -81,7 +93,7 @@ function getAccessToken() {
 }
 
 function domLoading() {
-  document.querySelector("#main-api").textContent = "Loading";
+  // document.querySelector("#main-api").textContent = "Loading";
 }
 
 async function fetchJson(url) {
@@ -109,7 +121,7 @@ async function fetchJson(url) {
   }
 }
 
-function buildDom(userData, userStatus) {
+function buildDom(userData, userStatus, parentNode) {
   // console.log("hi", userData); // Promise pending
   // let data = userData.data[0]; // can't read property '0' of undefined
   let userName = userData.login;
@@ -122,10 +134,8 @@ function buildDom(userData, userStatus) {
   // let userGameTitle = data.title;
   // let userName = data.user_name;
 
-  let main = document.querySelector("#main-api");
-
-  main.innerHTML =
-    main.innerHTML +
+  parentNode.innerHTML =
+    parentNode.innerHTML +
     `<section class="item">
             <img src=${userIcon} alt="user icon" class="item-img">
             <div class="item-right">
@@ -134,6 +144,18 @@ function buildDom(userData, userStatus) {
                 <p class="item-subtext">${userDescription}</p>
             </div>
             </section>`;
+}
+
+function hideDom() {
+  let section = document.querySelector("#main-dummy");
+
+  if (!section.classList.contains("hide")) {
+    section.classList.add("hide");
+  }
+  // We need to get rid of .main-grid bc further down the css file, .main-grid sets display to "grid", which overwrites "none"
+  if (section.classList.contains("main-grid")) {
+    section.classList.remove("main-grid")
+  }
 }
 
 /* -------------------------------------------------------------------------- */

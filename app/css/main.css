@@ -63,7 +63,7 @@ body {
 
 header {
     padding: 1em;
-    background: var(--twitch-purple);
+    background: var(--twitch-purple-med);
     /* background: linear-gradient(to right, var(--gray-dark), var(--twitch-purple)); */
     color: white;
     /* color: var(--twitch-purple); */
@@ -131,6 +131,7 @@ footer {
     background-color: var(--twitch-purple-med);
     color: white;
     padding: 1em 1.5em;
+    margin: 1em 0em;
     text-decoration: none;
     text-align: center;
 }
@@ -141,11 +142,20 @@ footer {
 
 #text-dummy-notice {
     text-align: center;
+    padding: 1rem 0rem;
 }
-/* .hide {
-    display: none
-} */
 
+.section-info {
+    font-size: 0.9rem;
+    color: var(--gray-dark);
+}
+
+.hide {
+    display: none;
+    /* visibility: collapse; */
+    /* overflow: hidden; */
+    /* height: 0px; */
+}
 /* ======================================================= 
     Layout
 ========================================================== */
@@ -231,7 +241,7 @@ footer {
 
     .main-grid {
         max-width: 80vw;
-        margin: 0 auto; /* center */
+        margin: 1rem auto 0em auto; /* center */
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* responsive layout without media queries */
         grid-auto-rows: minmax(min-content, max-content); /* prevents automatic vertical stretching of items */
