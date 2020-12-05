@@ -1,0 +1,100 @@
+{
+  "data": [
+      {
+          "id": "79776140",
+          "login": "freecodecamp",
+          "display_name": "FreeCodeCamp",
+          "type": "",
+          "broadcaster_type": "",
+          "description": "Learn to code for free at freecodecamp.org",
+          "profile_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/freecodecamp-profile_image-d9514f2df0962329-300x300.png",
+          "offline_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/freecodecamp-channel_offline_image-b8e133c78cd51cb0-1920x1080.png",
+          "view_count": 221941,
+          "created_at": "2015-01-14T03:36:47.619045Z"
+      },
+      {
+          "id": "65713197",
+          "login": "noopkat",
+          "display_name": "noopkat",
+          "type": "",
+          "broadcaster_type": "",
+          "description": "hardware hacker and open source coder",
+          "profile_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/d351e86e-d3b0-4f52-b9e3-2f695c0ed93c-profile_image-300x300.png",
+          "offline_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/3e8dc4c0-7e0c-44a2-8174-d234dbb5f194-channel_offline_image-1920x1080.jpg",
+          "view_count": 228411,
+          "created_at": "2014-07-06T02:38:42.424102Z"
+      },
+      {
+          "id": "119879569",
+          "login": "funfunfunction",
+          "display_name": "funfunfunction",
+          "type": "",
+          "broadcaster_type": "partner",
+          "description": "Failing together at mob programming every Monday!",
+          "profile_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/2bd8be04-8a8f-467e-8b66-9defa721b484-profile_image-300x300.png",
+          "offline_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/25f7680c-d629-49c8-99a9-03fab34db688-channel_offline_image-1920x1080.png",
+          "view_count": 75884,
+          "created_at": "2016-03-26T20:44:30.755826Z"
+      },
+      {
+          "id": "167974652",
+          "login": "jsthegame",
+          "display_name": "JStheGame",
+          "type": "",
+          "broadcaster_type": "affiliate",
+          "description": "chronicles of the struggle and glory of learning javascript on the internet",
+          "profile_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/bb2a287bdb8a0b31-profile_image-300x300.png",
+          "offline_image_url": "",
+          "view_count": 4874,
+          "created_at": "2017-08-02T18:38:59.484421Z"
+      },
+      {
+          "id": "204123153",
+          "login": "cscareerhackers",
+          "display_name": "cscareerhackers",
+          "type": "",
+          "broadcaster_type": "",
+          "description": "",
+          "profile_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/9edbc764-f2ef-42c7-9a20-3b6bfafe00a2-profile_image-300x300.jpg",
+          "offline_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/69714a06ce16a9d3-channel_offline_image-1920x1080.jpeg",
+          "view_count": 700,
+          "created_at": "2018-03-10T05:32:46.712411Z"
+      },
+      {
+          "id": "36029255",
+          "login": "riotgames",
+          "display_name": "Riot Games",
+          "type": "",
+          "broadcaster_type": "partner",
+          "description": "Welcome to the Riot Games channel, home of LoL Esports and other livestreams related to our games. For LoL Esports broadcasts, schedules, standings and advanced viewing features, head to http://lolesports.com.",
+          "profile_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/889e7697-b636-48d9-be15-a9a39e286a64-profile_image-300x300.png",
+          "offline_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/93c2678a-31b7-4506-a986-eef1f5269c20-channel_offline_image-1920x1080.png",
+          "view_count": 1260640327,
+          "created_at": "2012-09-08T06:53:10.58539Z"
+      },
+      {
+          "id": "60056333",
+          "login": "tfue",
+          "display_name": "Tfue",
+          "type": "",
+          "broadcaster_type": "partner",
+          "description": "Watch Me Play VideoGames",
+          "profile_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/82b63a01-628f-4c81-9b05-dd3a5011fdda-profile_image-300x300.png",
+          "offline_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/514c30ec-a166-420b-8a7b-8ec76d2fbbd9-channel_offline_image-1920x1080.png",
+          "view_count": 248117850,
+          "created_at": "2014-04-02T03:57:20.238268Z"
+      },
+      {
+          "id": "110690086",
+          "login": "myth",
+          "display_name": "Myth",
+          "type": "",
+          "broadcaster_type": "partner",
+          "description": "FPS / Variety Streamer. Former Fortnite Pro. Vibe Specialist. Keep believing.",
+          "profile_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/c814f430-44bd-41c5-aa47-edf2360d5e74-profile_image-300x300.png",
+          "offline_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/2467eea2-c2c2-44e7-9c45-a45450310be6-channel_offline_image-1920x1080.png",
+          "view_count": 127628164,
+          "created_at": "2015-12-27T19:23:58.830759Z"
+      }
+  ]
+}

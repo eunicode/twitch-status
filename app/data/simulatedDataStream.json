@@ -1,0 +1,55 @@
+{
+  "data": [
+      {
+          "id": "40814643662",
+          "user_id": "110690086",
+          "user_name": "Myth",
+          "game_id": "516575",
+          "game_name": "VALORANT",
+          "type": "live",
+          "title": "T1 vs 100T - VALORANT First Strike NA costream - !socials",
+          "viewer_count": 34126,
+          "started_at": "2020-12-04T20:27:37Z",
+          "language": "en",
+          "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_myth-{width}x{height}.jpg",
+          "tag_ids": [
+              "6ea6bca4-4712-4ab9-a906-e3336a9d8039"
+          ]
+      },
+      {
+          "id": "40814691310",
+          "user_id": "36029255",
+          "user_name": "Riot Games",
+          "game_id": "516575",
+          "game_name": "VALORANT",
+          "type": "live",
+          "title": "VALORANT First Strike: North American Quarterfinals Day 2",
+          "viewer_count": 661,
+          "started_at": "2020-12-04T20:32:24Z",
+          "language": "en",
+          "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_riotgames-{width}x{height}.jpg",
+          "tag_ids": [
+              "6ea6bca4-4712-4ab9-a906-e3336a9d8039",
+              "36a89a80-4fcd-4b74-b3d2-2c6fd9b30c95"
+          ]
+      },
+      {
+          "id": "40817189870",
+          "user_id": "60056333",
+          "user_name": "Tfue",
+          "game_id": "512710",
+          "game_name": "Call of Duty: Warzone",
+          "type": "live",
+          "title": "High Kill Solos",
+          "viewer_count": 627,
+          "started_at": "2020-12-04T23:53:07Z",
+          "language": "en",
+          "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_tfue-{width}x{height}.jpg",
+          "tag_ids": [
+              "6ea6bca4-4712-4ab9-a906-e3336a9d8039",
+              "24cc3843-e288-43f9-9c35-50fe1571c341"
+          ]
+      }
+  ],
+  "pagination": {}
+}
