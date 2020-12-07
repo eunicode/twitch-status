@@ -37,8 +37,8 @@ sequentialAsyncTaskWrapper(
   // "../data/simulatedDataUser.json",
   // "../data/simulatedDataStream.json",
   // PRODUCTION
-  "./data/simulatedDataUser.json", // The file path should be relative to index.html
-  "./data/simulatedDataStream.json",
+  "/data/simulatedDataUser.json", // The file path should be relative to index.html
+  "/data/simulatedDataStream.json",
   nodeDummy
 );
 
