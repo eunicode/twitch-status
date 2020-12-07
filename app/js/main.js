@@ -19,8 +19,8 @@ let ept = {
   URL_STREAM: "https://api.twitch.tv/helix/streams",
   URL_USER: "https://api.twitch.tv/helix/users",
   URL_AUTH: "https://id.twitch.tv/oauth2/authorize",
-  URL_REDIRECT: "http://localhost:3000",
-  // URL_REDIRECT = 'https://eunicode.github.io/twitch-status/',
+  // URL_REDIRECT: "http://localhost:3000",
+  URL_REDIRECT = 'https://eunicode.github.io/twitch-status/',
   ACCESS_TOKEN: "",
   INIT_OBJ: "",
 };
