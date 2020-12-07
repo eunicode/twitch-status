@@ -63,7 +63,7 @@ body {
 
 header {
     padding: 1em;
-    background: var(--twitch-purple);
+    background: var(--twitch-purple-med);
     /* background: linear-gradient(to right, var(--gray-dark), var(--twitch-purple)); */
     color: white;
     /* color: var(--twitch-purple); */
@@ -122,6 +122,40 @@ footer {
     margin-top: 4em;
 }
 
+.text-online {
+    color: var(--twitch-purple-med);
+    font-weight: bold;
+}
+
+#a-auth {
+    background-color: var(--twitch-purple-med);
+    color: white;
+    padding: 1em 1.5em;
+    margin: 1em 0em;
+    text-decoration: none;
+    text-align: center;
+}
+
+#a-auth:hover {
+    background-color: var(--twitch-purple);
+}
+
+#text-dummy-notice {
+    text-align: center;
+    padding: 1rem 0rem;
+}
+
+.section-info {
+    font-size: 0.9rem;
+    color: var(--gray-dark);
+}
+
+.hide {
+    display: none;
+    /* visibility: collapse; */
+    /* overflow: hidden; */
+    /* height: 0px; */
+}
 /* ======================================================= 
     Layout
 ========================================================== */
@@ -141,6 +175,14 @@ footer {
     max-width: inherit; /* 40em. Coupled with .grid bc of `inherit` */
 }
 
+/* Default section layout */
+.section-info {
+    max-width: 40em;
+    margin: 0 auto;
+    display: flex; 
+    flex-direction: column;
+}
+
 /* ------------------------------------------------------- */
 /* Mobile layout for browsers with Flexbox support */
 
@@ -153,6 +195,7 @@ footer {
     }
 }
 
+/* ------------------------------------------------------- */
 /* Layouts for browsers with CSS Grid support */
 
 @supports (grid-area: auto) {
@@ -168,7 +211,8 @@ footer {
     .grid {
         display: grid;
         min-height: 100vh;
-        grid-template-rows: auto 4em 1fr auto;
+        grid-template-rows: auto 2em 1fr auto;
+        grid-auto-rows: auto;
         /* grid-template-rows: auto 10px 1fr 10px auto; */
         /* grid-template-areas: 
             "head"
@@ -197,7 +241,7 @@ footer {
 
     .main-grid {
         max-width: 80vw;
-        margin: 0 auto; /* center */
+        margin: 1rem auto 0em auto; /* center */
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* responsive layout without media queries */
         grid-auto-rows: minmax(min-content, max-content); /* prevents automatic vertical stretching of items */
@@ -205,6 +249,34 @@ footer {
         grid-gap: 10px;
     }
 
+    /* ------------------------------------------------------- */
+    /* MEDIA QUERIES */
+
+    /* In fallback layout, login button is full-width */
+    /* At wider viewports, login button will be small */
+    @media (min-width: 615px) {
+        p.info {
+            grid-area: t1;
+        }
+        #a-auth {
+            grid-area: button;
+        }
+        #text-dummy-notice {
+            grid-area: t2
+        }
+
+        .section-grid {
+            max-width: 80vw;
+            margin: 0 auto;
+            display: grid;
+            grid-auto-rows: minmax(min-content, max-content);
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-areas: 
+            "t1 t1 t1"
+            ". button ."
+            "t2 t2 t2";
+        }
+    }
 }
 
 /* TODO

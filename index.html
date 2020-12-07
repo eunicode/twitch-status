@@ -13,12 +13,23 @@
     <div class="grid">
 
         <header>
-            <h1>Twitch Tracker</h1>
+            <h1>Twitch Online Status Checker</h1>
         </header>
 
         <div></div> <!-- Empty row with grid for spacing -->
+        
+        <!-- <form id="form-auth">
+            <input type="submit" value="Go to Twitch authentication" class="input-auth" /> 
+        </form> -->
 
-        <main class="main-grid">
+        <section class="section-grid section-info">
+            <p class="info">Twitch API requests must now be authenticated. Since this is a client-side app, it will use implicit authentication to send the user's own OAuth token in API requests. This means you will have to sign in to your Twitch account to use this site to query the Twitch API. If you don't have a Twitch account, you can view this site with dummy data.</p>
+            <a href ="" id="a-auth">Log in to Twitch</a>
+            <p id="text-dummy-notice">You are currently viewing static data. To see live data, click the "Log in to Twitch" button.</p>
+        </section>
+
+        <!-- Tiles with dummy data -->
+        <main class="main-grid" id="main-dummy">
             <!-- Programmatically add user sections to the DOM -->
             <!-- Example section
             <section class="item">
@@ -33,6 +44,8 @@
             </section>
             -->
         </main>
+        <!-- Tiles to be shown if you're using data from Twitch API-->
+        <main class="main-grid" id="main-api"></main>
 
         <footer>Coded by <a href="https://github.com/eunicode" class="a-dark-theme">eunicode</a></footer>
 
