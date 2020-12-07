@@ -27,9 +27,13 @@ Install dependencies: `npm install`
 
 In terminal, move to project directory. Run the default gulp command to start the live Browsersync server: `gulp`
 
-Change value of `ept.URL_REDIRECT`
+Depending if you're in development or production environment, change value of `ept.URL_REDIRECT`
 
 To stop server: `Ctrl + C`
+
+To deploy to GitHub Pages, run npm script: `npm run deploy`
+
+To update npm packages: `npm update`
 ## Lessons learned
 
 - How to use gulp v4 API (gulp.task + gulp.series)
