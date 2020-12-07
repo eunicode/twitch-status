@@ -6,6 +6,7 @@ const USERS = [
   "noopkat",
   "funfunfunction",
   "jsthegame",
+  "kentcdodds",
   "cscareerhackers",
   "riotgames",
   "tfue",
@@ -25,23 +26,27 @@ let ept = {
 };
 
 // Bad global variable
-let nodeDummy = document.querySelector("#main-dummy")
+let nodeDummy = document.querySelector("#main-dummy");
 let nodeApi = document.querySelector("#main-api");
 
 // Build dummy grid
-sequentialAsyncTaskWrapper('../data/simulatedDataUser.json', 
-'../data/simulatedDataStream.json', nodeDummy)
-
-// Set login button's link to Twitch login URL
-document.querySelector("#a-auth").setAttribute(
-  "href",
-  // 'https://id.twitch.tv/oauth2/authorize?client_id=' + CLIENT_ID + '&redirect_uri=' + encodeURIComponent(URL_REDIRECT) + '&response_type=token'
-  `${ept.URL_AUTH}?client_id=${ept.CLIENT_ID}&redirect_uri=${encodeURIComponent(
-    ept.URL_REDIRECT
-  )}&response_type=token`
+sequentialAsyncTaskWrapper(
+  "../data/simulatedDataUser.json",
+  "../data/simulatedDataStream.json",
+  nodeDummy
 );
 
-// If user chooses to authenticate
+// Set login button's link to Twitch login URL
+document
+  .querySelector("#a-auth")
+  .setAttribute(
+    "href",
+    `${ept.URL_AUTH}?client_id=${
+      ept.CLIENT_ID
+    }&redirect_uri=${encodeURIComponent(ept.URL_REDIRECT)}&response_type=token`
+  );
+
+// If user chooses to authenticate, they get a URL like http://localhost:3000/#access_token=11111&scope=&token_type=bearer
 // Location.hash returns a string containing a '#' followed by the fragment identifier of the URL
 if (document.location.hash) {
   // Get access token from URL
@@ -50,7 +55,10 @@ if (document.location.hash) {
 
   if (accessToken) {
     // Hide dummy grid
-    hideDom();
+    let section = document.querySelector("#main-dummy");
+    let dummyNotice = document.querySelector("#text-dummy-notice");
+    hideDom(section);
+    hideDom(dummyNotice);
 
     // Iterate array and run code for each element
     let urlUser = `${ept.URL_USER}?`;
@@ -62,18 +70,19 @@ if (document.location.hash) {
       urlStream += `&user_login=${user}`;
     }
 
-    sequentialAsyncTaskWrapper(urlUser, urlStream, nodeApi)
+    sequentialAsyncTaskWrapper(urlUser, urlStream, nodeApi);
   }
 }
 
-async function sequentialAsyncTaskWrapper(urlUser, urlStream, node) { // Alternatively, use rest syntax to receive any number of args
+async function sequentialAsyncTaskWrapper(urlUser, urlStream, node) {
+  // Alternatively, use rest syntax to receive any number of args
   let userData = await fetchJson(urlUser); // Step 1. These are sequential
-  let streamData = await fetchJson(urlStream); // Step 2. 
-  let streamSet = new Set()
+  let streamData = await fetchJson(urlStream); // Step 2.
+  let streamSet = new Set();
 
   // Create set of online users, O(1) lookup
   for (let streamer of streamData.data) {
-    streamSet.add(streamer.user_name.toLowerCase())
+    streamSet.add(streamer.user_name.toLowerCase());
   }
 
   for (let user of userData.data) {
@@ -87,12 +96,12 @@ async function sequentialAsyncTaskWrapper(urlUser, urlStream, node) { // Alterna
 // HELPER FUNCTIONS
 
 function getAccessToken() {
-  let parsedHash = new URLSearchParams(window.location.hash.substr(1));
+  let parsedHash = new URLSearchParams(window.location.hash.substr(1)); // Get string after '#'
   let accessToken = parsedHash.get("access_token");
   return accessToken;
 }
 
-function domLoading() {
+function domLoadingMessage() {
   // document.querySelector("#main-api").textContent = "Loading";
 }
 
@@ -104,7 +113,6 @@ async function fetchJson(url) {
       headers: {
         // `init` object
         "Client-ID": ept.CLIENT_ID,
-        // Accept: 'application/vnd.twitchtv.v5+json',
         Authorization: `Bearer ${ept.ACCESS_TOKEN}`,
       },
     }
@@ -122,17 +130,13 @@ async function fetchJson(url) {
 }
 
 function buildDom(userData, userStatus, parentNode) {
-  // console.log("hi", userData); // Promise pending
-  // let data = userData.data[0]; // can't read property '0' of undefined
   let userName = userData.login;
-  let userOnlineStatus = userStatus.has(userName.toLowerCase()) ? "live" : "offline";
+  let userOnlineStatus = userStatus.has(userName.toLowerCase())
+    ? "live"
+    : "offline";
   let userUrl = `https://twitch.tv/${userData.login}`;
-  // let userUrl = `https://twitch.tv/${data.user_name}`;
   let userIcon = userData.profile_image_url;
-  // let userIcon = data.thumbnail_url;
   let userDescription = userData.description;
-  // let userGameTitle = data.title;
-  // let userName = data.user_name;
 
   parentNode.innerHTML =
     parentNode.innerHTML +
@@ -140,37 +144,44 @@ function buildDom(userData, userStatus, parentNode) {
             <img src=${userIcon} alt="user icon" class="item-img">
             <div class="item-right">
                 <h3><a href=${userUrl} target="_blank">${userName}</a></h3>
-                <p class=${userOnlineStatus === 'live' ? 'text-online' : 'text-offline'}>${userOnlineStatus}</p>
+                <p class=${
+                  userOnlineStatus === "live" ? "text-online" : "text-offline"
+                }>${userOnlineStatus}</p>
                 <p class="item-subtext">${userDescription}</p>
             </div>
             </section>`;
 }
 
-function hideDom() {
-  let section = document.querySelector("#main-dummy");
+function hideDom(node) {
+  if (!node.classList.contains("hide")) {
+    node.classList.add("hide");
+  }
 
-  if (!section.classList.contains("hide")) {
-    section.classList.add("hide");
-  }
   // We need to get rid of .main-grid bc further down the css file, .main-grid sets display to "grid", which overwrites "none"
-  if (section.classList.contains("main-grid")) {
-    section.classList.remove("main-grid")
+  if (node.classList.contains("main-grid")) {
+    node.classList.remove("main-grid");
   }
+
+  
+
+
 }
 
 /* -------------------------------------------------------------------------- */
-// TO DO
-// Get rid of global variables
-// Promises
-// DRY up code with OOJS?
-// Add BEM classes
-// Add colored dot to signal if user is online/offline
-// Add color to username to signal if user is online/offline
-// Sort online users to the top
-// Add tabs for offline, online users
-// Add ability to search and add/remove users
 
 /*
+TO DO
+Get rid of global variables
+Promises
+DRY up code with OOJS?
+Add BEM classes
+Add colored dot to signal if user is online/offline
+Add color to username to signal if user is online/offline
+Sort online users to the top
+Add tabs for offline, online users
+Add ability to search and add/remove users
+
+TO DO MORE
 Store user access token in local storage 
 */
 
@@ -180,8 +191,6 @@ Store user access token in local storage
 /* -------------------------------------------------------------------------- */
 
 /*
-
-
 
 https://dev.twitch.tv/docs/authentication
 
@@ -199,4 +208,22 @@ Client credentials flow	= You need an app access token.
 
 OAuth implicit code flow
 https://dev.twitch.tv/docs/authentication/getting-tokens-oauth#oauth-implicit-code-flow
+
+--------------------------------------------------------------------------------
+Location: hash
+https://developer.mozilla.org/en-US/docs/Web/API/Location/hash
+
+URLSearchParams
+https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
+
+The URLSearchParams interface defines utility methods to work with the query string of a URL.
+
+URLSearchParams.get()
+https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/get
+
+--------------------------------------------------------------------------------
+Twitch implicit auth example
+https://barrycarlyon.github.io/twitch_misc/authentication/implicit_auth/
+https://github.com/BarryCarlyon/twitch_misc/blob/master/authentication/implicit_auth/index.html
+
  */

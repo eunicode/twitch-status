@@ -18,11 +18,11 @@
   },
   "homepage": "https://github.com/eunicode/twitch-status#readme",
   "devDependencies": {
-    "browser-sync": "^2.26.3",
-    "gh-pages": "^2.0.1",
-    "gulp": "^4.0.0"
+    "browser-sync": "^2.26.13",
+    "gh-pages": "^2.2.0",
+    "gulp": "^4.0.2"
   },
   "dependencies": {
-    "dotenv": "^6.1.0"
+    "dotenv": "^6.2.0"
   }
 }
