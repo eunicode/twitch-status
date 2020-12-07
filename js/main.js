@@ -19,7 +19,9 @@ let ept = {
   URL_STREAM: "https://api.twitch.tv/helix/streams",
   URL_USER: "https://api.twitch.tv/helix/users",
   URL_AUTH: "https://id.twitch.tv/oauth2/authorize",
+  // DEVELOPMENT
   // URL_REDIRECT: "http://localhost:3000",
+  // PRODUCTION
   URL_REDIRECT: 'https://eunicode.github.io/twitch-status/',
   ACCESS_TOKEN: "",
   INIT_OBJ: "",
@@ -31,8 +33,12 @@ let nodeApi = document.querySelector("#main-api");
 
 // Build dummy grid
 sequentialAsyncTaskWrapper(
-  "../data/simulatedDataUser.json",
-  "../data/simulatedDataStream.json",
+  // DEVELOPMENT
+  // "../data/simulatedDataUser.json",
+  // "../data/simulatedDataStream.json",
+  // PRODUCTION
+  "./data/simulatedDataUser.json", // The file path should be relative to index.html
+  "./data/simulatedDataStream.json",
   nodeDummy
 );
 
@@ -108,10 +114,8 @@ function domLoadingMessage() {
 async function fetchJson(url) {
   const response = await fetch(
     `${url}`, // resource
-    // ept.URL_STREAM + "?user_login=cnstv1994",
     {
-      headers: {
-        // `init` object
+      headers: { // `init` object
         "Client-ID": ept.CLIENT_ID,
         Authorization: `Bearer ${ept.ACCESS_TOKEN}`,
       },
