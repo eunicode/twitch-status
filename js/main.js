@@ -1,5 +1,3 @@
-import { auth } from "../secrets.js";
-
 // Bad global variable
 const USERS = [
   "freecodecamp",
@@ -15,7 +13,7 @@ const USERS = [
 
 // Bad global variable
 let ept = {
-  CLIENT_ID: auth.clientId,
+  CLIENT_ID: "2hz90m0uh0nput0qtr8qwc9245maj9",
   URL_STREAM: "https://api.twitch.tv/helix/streams",
   URL_USER: "https://api.twitch.tv/helix/users",
   URL_AUTH: "https://id.twitch.tv/oauth2/authorize",
@@ -33,12 +31,8 @@ let nodeApi = document.querySelector("#main-api");
 
 // Build dummy grid
 sequentialAsyncTaskWrapper(
-  // DEVELOPMENT
-  // "../data/simulatedDataUser.json",
-  // "../data/simulatedDataStream.json",
-  // PRODUCTION
-  "./data/simulatedDataUser.json", // The file path should be relative to index.html
-  "./data/simulatedDataStream.json",
+  "./data/simulatedDataUser.json", // Use index.html relative path so fetch() can work locally and in GitHub Pages
+  "./data/simulatedDataStream.json", // fetch() call is from root
   nodeDummy
 );
 
