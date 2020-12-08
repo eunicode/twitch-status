@@ -33,6 +33,7 @@ Thumbs.db
 # API key file
 api.js
 secrets.js
+.secrets.js
 
 # Misc
 .env

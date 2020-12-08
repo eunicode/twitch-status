@@ -53,5 +53,5 @@ To update npm packages: `npm update`
 
 - Add the ability to search for streamers
 - Add the ability to add or remove streamers
-- Use env file to keep API keys private
+- Use env file to keep API keys private / use gulp to build production build
 - More to do list items [here](https://github.com/eunicode/twitch-status/blob/master/app/js/main.js)

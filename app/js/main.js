@@ -1,5 +1,3 @@
-import { auth } from "../secrets.js";
-
 // Bad global variable
 const USERS = [
   "freecodecamp",
@@ -15,7 +13,7 @@ const USERS = [
 
 // Bad global variable
 let ept = {
-  CLIENT_ID: auth.clientId,
+  CLIENT_ID: "2hz90m0uh0nput0qtr8qwc9245maj9",
   URL_STREAM: "https://api.twitch.tv/helix/streams",
   URL_USER: "https://api.twitch.tv/helix/users",
   URL_AUTH: "https://id.twitch.tv/oauth2/authorize",
