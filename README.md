@@ -19,21 +19,24 @@ Check out the live website here: https://eunicode.github.io/twitch-status/
 
 ## APIs
 
-- <del>[Twitch API v5](https://dev.twitch.tv/docs/v5/)</del> [Twitch Helix API]()
+- <del>[Twitch API v5](https://dev.twitch.tv/docs/v5/)</del> ➡️ [Twitch Helix API]()
 
 ## Set Up
 
 Install dependencies: `npm install`
 
-In terminal, move to project directory. Run the default gulp command to start the live Browsersync server: `gulp`
+In terminal, move to project directory. 
 
-Depending if you're in development or production environment, change value of `ept.URL_REDIRECT`
+Run the default gulp command to start the live Browsersync server: `gulp`
+
+Depending if you're in development or production environment, change value of `ept.URL_REDIRECT`. For example, in `main.js`, if you are in development mode, the variable `URL_REDIRECT` should be `"http://localhost:3000"`. If you are in production mode, the variable `URL_REDIRECT`  should be `"https://eunicode.github.io/twitch-status/"`. 
 
 To stop server: `Ctrl + C`
 
 To deploy to GitHub Pages, run npm script: `npm run deploy`
 
-To update npm packages: `npm update`
+To update npm packages: `npm update` or `npm audit fix`
+
 ## Lessons learned
 
 - How to use gulp v4 API (gulp.task + gulp.series)
@@ -49,9 +52,11 @@ To update npm packages: `npm update`
 - Create rows the size of its content: `grid-auto-rows: minmax(min-content, max-content);`
 - Review how to use default vertical stacking for narrow viewports, and using a media query to switch to horizontal stacking at wider viewports with flexbox
 - Review placing items on grid with grid-column-start/end or grid-areas and grid-template areas
+
 ## To do
 
+- Automate the switching of `URL_REDIRECT` variable depending on development or production mode
+- Use env file to keep API keys private
 - Add the ability to search for streamers
 - Add the ability to add or remove streamers
-- Use env file to keep API keys private
 - More to do list items [here](https://github.com/eunicode/twitch-status/blob/master/app/js/main.js)
