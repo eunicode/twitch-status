@@ -30,7 +30,7 @@ yarn-error.log*
 ehthumbs.db
 Thumbs.db
 
-# API key file
+# API key file - none are currently being used
 api.js
 secrets.js
 .secrets.js
